@@ -1,0 +1,11 @@
+/* shell : ipcs to show messages queue
+ *demander au serveur la liste des types d'objets disponiblesi
+ *pour un type d'objets, demander l'état du stock et le prix,
+ *suicide du serveur apres 4 clients servie
+ *2 clients concurent au max
+ *
+ * typedef struct
+ * {
+ * long type;
+ * }message
+ */
