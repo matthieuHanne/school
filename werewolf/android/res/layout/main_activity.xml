@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id = "@+id/mainTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:layout_gravity="top"
+        android:text="Application Le loup garou"/>
+    
+     <TextView
+        android:id = "@+id/ipTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:layout_gravity="fill"
+        android:text="Entrer l'adresse du serveur"/>
+     
+    <EditText 
+        android:id = "@+id/ipEdit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:text="192.168.0.36"
+        />
+    <Button 
+        android:id= "@+id/enterBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
+        android:text="Enter dans l'application"/>
+</LinearLayout>

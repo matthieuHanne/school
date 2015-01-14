@@ -1,0 +1,6 @@
+main=false
+gui=false
+container-name=WereAgents 
+host=127.0.0.1
+local-port=1099
+port=1099
