@@ -1,0 +1,18 @@
+{% extends "::layout.html.twig" %}
+ 
+{% block title %}
+  {{ parent() }}
+{% endblock %}
+ 
+{% block body %} 
+  <hr>
+ 
+  {% block epicore_body %}
+  {% endblock %}
+  
+  <hr>
+{% endblock %}
+
+{% block partenaires %}
+<a href="http://wwwassos.utc.fr/" target="_blank">BDE UTC</a>
+{% endblock %}

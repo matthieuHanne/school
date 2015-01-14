@@ -1,6 +1,19 @@
-/web/bundles/
-/app/bootstrap*
-/app/cache/*
-/app/logs/*
-/vendor/
-/app/config/parameters.yml
+# # Symfony directories
+Symfony/vendor/*
+*/logs/*
+*/cache/*
+app/cache/*
+Symfony/app/cache/*
+Symfony/app/logs/*
+Symfony/web/uploads/*
+Symfony/web/bundles/*
+..*
+*.*.un~
+*.DS_Store
+# Configuration files
+Symfony/app/config/parameters.ini
+Symfony/app/config/parameters.yml
+Symfony/app/bootstrap.php.cache
+Symfony/app/check.php
+Symfony/app/SymfonyRequirements.php
+Symfony/web/config.php

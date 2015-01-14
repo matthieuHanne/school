@@ -1,0 +1,92 @@
+{% extends "EpiAdminBundle::layout.html.twig" %}
+
+{% block body %}
+<h3>Modifier l'utilisateur : {{ user.username }}</h3>
+
+<form action="{{ path('admin_modifuser', {'username': user.username|url_encode}) }}" {{ form_enctype(form) }} method="POST">
+	{% set tok = form_row(form._token) %}
+	<div id="fos_user_registration_form">
+		<div>
+			<input type="hidden" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" value="{{ user.username }}" />
+		</div>
+		<div>
+			<label for="fos_user_registration_form_[email]" class="required">Adresse email :</label>
+			<input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" value="{{ user.email }}" />
+		</div>
+		<div>
+			<input type="hidden" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" value="" />
+		</div>
+		<div>
+			<input type="hidden" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" value="" />
+		</div>
+		{{ tok|raw }}
+		<input class="btn btn-primary" type="submit" value="Valider la modification" /> 
+	</div>
+</form>
+
+<p><button href="#modalPW" class="btn btn-warning" data-toggle="modal">Changer le mot de passe</button>
+{% set adm = 0 %}
+{% for role in user.roles %}
+ 	{% if role == 'ROLE_ADMIN' %}
+		{% set adm = 1 %}
+ 	{% endif %}
+{% endfor %}
+
+{% if adm == 1 %}
+	<button href="#modalRmAdmin" class="btn btn-danger" data-toggle="modal">Retirer les droits d'administration</button>
+
+	<div class="modal hide fade" id="modalRmAdmin">
+		<div class="modal-body">
+			Êtes-vous sûr de vouloir retirer les droits d'administration à l'utilisateur {{ user.username }} ?
+		</div>
+		<div class="modal-footer">
+			<a href="{{ path('admin_demote', {'username': user.username|url_encode}) }}" class="btn btn-success">Valider le retrait des droits</a>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+		</div>
+	</div>
+{% else %}
+	<button href="#modalAddAdmin" class="btn btn-danger" data-toggle="modal">Donner les droits d'administration</button>
+	
+	<div class="modal hide fade" id="modalAddAdmin">
+		<div class="modal-body">
+			Êtes-vous sûr de vouloir donner les droits d'administration à l'utilisateur {{ user.username }} ?
+		</div>
+		<div class="modal-footer">
+			<a href="{{ path('admin_promote', {'username': user.username|url_encode}) }}" class="btn btn-success">Valider l'ajout des droits</a>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+		</div>
+	</div>
+{% endif %}
+</p>
+
+<a href="{{ path('admin_users') }}" class="btn">Retour à l'administration des utilisateurs</a>
+
+<div class="modal hide fade" id="modalPW">
+	<div class="modal-body">
+	   	<form action="{{ path('admin_modifuser', {'username': user.username|url_encode}) }}" {{ form_enctype(form) }} method="POST">
+		<div id="fos_user_registration_form">
+			<div>
+				<input type="hidden" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" value="{{ user.username }}" />
+			</div>
+			<div>
+				<input type="hidden" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" value="{{ user.email }}" />
+			</div>
+			<div>
+				<label for="fos_user_registration_form_plainPassword_first" class="required">Nouveau mot de passe :</label>
+				<input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" />
+			</div>
+			<div>
+				<label for="fos_user_registration_form_plainPassword_second" class="required">Vérification :</label>
+				<input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" />
+			</div>
+			{{ tok|raw }}
+			<input class="btn btn-primary" type="submit" value="Changer le mot de passe de {{user.username}}" /> 
+		</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+	   	<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+	</div>
+</div>
+
+{% endblock %}

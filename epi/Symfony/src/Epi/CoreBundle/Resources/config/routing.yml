@@ -1,0 +1,11 @@
+core_static:
+    path: /{page}
+    defaults: { _controller: EpiCoreBundle:Core:static, page: index }
+    requirements:
+        page: index|info|agir|contact|aider|donner|benevolat|presentation|beneficier|partenaire
+
+user_commande_remove:
+    path: /profile/user_rm_commande/{id}
+    defaults: { _controller: EpiUserBundle:Profile:remove_commande }
+    requirements:
+        id:  \d+

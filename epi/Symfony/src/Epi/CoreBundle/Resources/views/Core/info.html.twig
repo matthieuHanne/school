@@ -1,0 +1,11 @@
+{% extends "EpiCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - C'est quoi EPI ?{% endblock %}
+
+{% block epicore_body %}
+
+{{coreDatas['epi']|raw}}
+
+<br style="clear:both;" /> 
+
+{% endblock %}

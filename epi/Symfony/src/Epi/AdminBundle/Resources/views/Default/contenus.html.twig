@@ -1,0 +1,51 @@
+{% extends "EpiAdminBundle::layout.html.twig" %}
+
+{% block body %}
+
+<ul class="nav nav-pills">
+	<li {% if onglet_contenus=="aide" %} class="active" {% endif %} ><a href="#aide" data-toggle="tab" style="color:black;">Aide pour l'édition des contenus</a></li>
+	<li {% if onglet_contenus=="epi" %} class="active" {% endif %}><a href="#epi" data-toggle="tab">Edition de "C'est quoi EPI ?"</a></li>
+	<li {% if onglet_contenus=="agir" %} class="active" {% endif %} ><a href="#agir" data-toggle="tab">Edition de "Agir"</a></li>
+	<li {% if onglet_contenus=="contact" %} class="active" {% endif %} ><a href="#contact" data-toggle="tab">Edition de "Contact"</a></li>
+</ul>
+<div class="tab-content">
+
+
+	{% for coreData in coreDatas %}
+		<div class="tab-pane {% if onglet_contenus==coreData.page %} active {% endif %}" id="{{coreData.page}}"  >
+			<form action="{{ path('admin_update_coreData', {'id' : coreData.id}) }}" method="post" {{form_enctype(coreDatas_forms[coreData.page])}}>
+			    <div>
+				  {{ form_label(coreDatas_forms[coreData.page].value, "Code HTML : ") }}	 
+				  {{ form_widget(coreDatas_forms[coreData.page].value) }}
+				  {{ form_errors(coreDatas_forms[coreData.page].value) }}
+				</div>
+				<button class="btn btn-primary" type="submit">Enregistrer</button>
+			</form>
+		</div>
+	{% endfor %}
+
+
+	<div class="tab-pane {% if onglet_contenus=='aide' %} active {% endif %}" id="aide">
+		Voici les quelques balises HTML qui pourront vous être utiles lors de la modification des contenus. Elles peuvent être couplées à d'autres balises HTML et attributs CSS, mais l'objectif de cette partie est de pouvoir fournir les balises de base pour l'entretien du site par des non-informaticiens.<br>
+		Une balise ouverte doit être refermée si on veut que le texte soit mis en forme. Une balise ouvrante a un nom, et une balise fermante contient ce même nom précédé d'un slash. <u>Les balises doivent être fermées dans l'ordre inverse d'ouverture</u>, c'est à dire que le si on veut par exemple un texte gras et souligné, il faut se dire "je commence à écrire en gras", "je commence a écrire souligné", "j'arrête d'écrire souligné", "j'arrête d'écrire en gras".<br>
+		<br>
+		La balise <b>&lt;h1&gt;</b> sert à écrire un titre important (titre niveau 1). <div class="well"><u>Exemple</u> (code : &lt;h1&gt;Titre1&lt;/h1&gt;) : <h1>Titre1</h1></div><br>
+		La balise <b>&lt;h2&gt;</b> sert à écrire un titre secondaire (titre niveau 2). Sur ce site, il est défini dans un fichier de styles que la première lettre des titres niveau 2 est en bleu.<div class="well"><u>Exemple</u> (code : &lt;h2&gt;Titre2&lt;/h2&gt;) : <h2>Titre2</h2></div>
+		Il existe des niveaux de titres jusque h6.<br><br>
+		La balise <b>&lt;/br&gt;</b> sert à aller à la ligne. Elle ne doit pas être refermée.<div class="well"><u>Exemple</u> (code : Ligne1&lt;/br&gt;Ligne2) : Ligne1</br>Ligne2</div><br>
+		La balise <b>&lt;div&gt;</b> sert à définir une division, une partie du contenu de la page. La balise <b>&lt;span&gt;</b> a à peu près le même rôle mais sans retour à la ligne. <div class="well"><u>Exemple</u> (code : &lt;span&gt;Span&lt;/span&gt;&lt;div&gt;Division&lt;/div&gt;) : <span>Span</span><div>Division</div></div><br>
+		La balise <b>&lt;p&gt;</b> sert à écrire un paragraphe. <div class="well"><u>Exemple</u> (code : &lt;p&gt;Titre2&lt;/p&gt;) : <p>Paragraphe</p></div><br>
+		Les balises <b>&lt;b&gt;</b>, <b>&lt;i&gt;</b> et <b>&lt;u&gt;</b> servent respectivement à écrire en gras, italique, et souligné. <div class="well"><u>Exemple</u> (code : &lt;b&gt;Gras&lt;/b&gt; &lt;i&gt;italique&lt;/i&gt; &lt;u&gt;souligné&lt;/u&gt;) : <b>Gras</b> <i>italique</i> <u>souligné</u><br><b><u>Gras ET souligné</u></b> (&lt;b&gt;&lt;u&gt;Gras ET souligné&lt;/u&gt;&lt;/b&gt;)</div><br>
+		La balise <b>&lt;a&gt;</b> sert à faire un lien hypertexte. L'attribut href donne l'adresse du lien, faîtes bien attention à faire comme dans l'exemple, <u>en remplaçant # par votre lien</u>. <div class="well"><u>Exemple</u> (code : &lt;a href="#"&gt;Lien&lt;/a&gt;) : <a href="#">Lien</a><br>Si on veut un lien vers le site de l'UTC il faut donc faire <b>&lt;a href="http://www.utc.fr"&gt;Lien vers le site de l'UTC&lt;/a&gt;</b>, ce qui donne <a href="http://www.utc.fr" target="_blank">Lien vers le site de l'UTC</a>.</div><br>
+		Les balises <b>&lt;ul&gt;</b> et <b>&lt;li&gt;</b> servent respectivement à créer une liste, et à insérer des items dans cette liste. Ce sont des listes non numérotées, pour les listes numérotées il faut utiliser <b>&lt;ol&gt;</b> à la place de <b>&lt;ul&gt;</b>. Ces listes peuvent être imbriquées.<div class="well"><u>Exemple</u> (code : &lt;ul&gt;&lt;li&gt;Item1&lt;/li&gt;&lt;li&gt;Item2&lt;/li&gt;&lt;li&gt;&lt;ol&gt;&lt;li&gt;Numéroté un&lt;/li&gt;&lt;li&gt;Numéroté deux&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;/ul&gt;) : <ul><li>Item1</li><li>Item2</li><li><ol><li>Numéroté un</li><li>Numéroté deux</li></ol></li></ul></div><br>
+		Pour terminer, la balise <b>&lt;img&gt;</b> vous permettra d'afficher une image, via l'attribut <b>src</b>. Cela fonctionne un peu comme les liens.<div class="well"><u>Exemple</u> (code : &lt;img src="http://upload.wikimedia.org/wikipedia/commons/c/c1/Oisux.png" /&gt;) : <img src="http://upload.wikimedia.org/wikipedia/commons/c/c1/Oisux.png" /></div><br>
+		<br>
+		A priori, vous ne devriez pas avoir besoin d'autres balises pour gérer les contenus statiques. Cependant, en cas de nécessité, vous pouvez trouver une bonne aide sur le <a href="http://www.siteduzero.com/informatique/tutoriels/apprenez-a-creer-votre-site-web-avec-html5-et-css3">tutoriel HTML du Site du Zéro</a>.
+	</div>
+</div>
+
+
+
+
+
+{% endblock %}

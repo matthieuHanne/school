@@ -1,0 +1,67 @@
+{% extends "EpiAdminBundle::layout.html.twig" %}
+
+{% block body %}
+
+<p><a href="#formModal" class="btn" role="button" data-toggle="modal"><i class="icon-plus"></i> Ajouter une news</a></p>
+
+<table class="table table-striped">
+  <TR>
+	 <TH>Titre</TH>
+	 <TH>Contenue</TH>
+	 <TH>Auteur</TH>
+	 <TH>Publiée</TH>
+	 <TH></TH>
+  </TR>
+  {% for new in news%}
+  <TR>
+	 <TD>{{new.title}}</TD>
+	 <TD>{{new.contain}}</TD>
+	 <Td>{{new.author}}</Td>
+	 <TD>{{new.publication}}</TD>
+	 <td>
+	 	<a href="{{ path('admin_putnews', {'id': new.id}) }}" class="btn btn-inverse btn-small">Editer</a>
+		<a href="#modalRemove{{new.id}}" data-toggle="modal" class="btn btn-danger btn-small">Supprimer</a>
+	 </td>
+  </TR>
+  {% endfor %}
+</table>
+
+	{% for new in news %}
+		<div class="modal hide fade" id="modalRemove{{new.id}}">
+		  <div class="modal-body">
+		    	<p>Êtes vous sûr de vouloir supprimer la news numéro {{new.id}} ?</p>
+		   </div>
+		  <div class="modal-footer">
+	    	<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+	    	<a href="{{ path('admin_delnews', {'id': new.id}) }}" class="btn btn-primary">Oui</a>
+		  </div>
+		</div>
+	{% endfor %}
+
+
+
+<!-- Modal -->
+<div id="formModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel">Ajouter une news </h3>
+	</div>
+	<div class="modal-body">
+			<form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+				<div><label for="epi_corebundle_newstype_title" class="required">Titre de la news</label>
+				<input type="text" id="epi_corebundle_newstype_title" name="epi_corebundle_newstype[title]" required="required" /></div>
+				<div><label for="epi_corebundle_newstype_author" class="required">Auteur</label>
+				<input type="text" id="epi_corebundle_newstype_author" name="epi_corebundle_newstype[author]" required="required" /></div>
+				<div><label for="epi_corebundle_newstype_contain" class="required">Contenu</label>
+				<textarea id="epi_corebundle_newstype_contain" name="epi_corebundle_newstype[contain]" required="required"></textarea></div>
+				<div><label for="epi_corebundle_newstype_publication" class="checkbox">Publication <input type="checkbox" id="epi_corebundle_newstype_publication" name="epi_corebundle_newstype[publication]" value="1" checked="checked" /></label></div>
+				{{ form_row(form._token) }}
+	</div>
+	<div class="modal-footer">
+		<input type="submit" class="btn btn-primary" />
+		</form>
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+	</div>
+</div>
+
+{% endblock %}

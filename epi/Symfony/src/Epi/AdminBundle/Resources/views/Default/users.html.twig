@@ -1,0 +1,72 @@
+{% extends "EpiAdminBundle::layout.html.twig" %}
+
+{% block body %}
+
+<p><button href="#modalAddUser" class="btn" data-toggle="modal"><i class="icon-plus"></i> Ajouter un utilisateur</button></p>
+
+<table class="table table-striped">
+  <TR> 
+	 <TH>Login</TH> 
+	 <TH>Droits</TH> 
+	 <TH>Email</TH>
+	 <TH></TH> 
+  </TR> 
+  {% for user in users %}
+  <TR> 
+	 <TD>{{user.username}}</TD>
+	 <TD>{% for role in user.roles %}
+		 	{% if role == 'ROLE_ADMIN' %}administrateur 
+		 	{% elseif role == 'ROLE_USER' %}utilisateur
+		 	{% endif %}
+	 	{% endfor %}</TD> 
+	 <TD><a href="mailto:{{user.email}}">{{user.email}}</a></TD>
+	 <td>
+	 	<a href="{{ path('admin_modifuser', {'username': user.username|url_encode}) }}" class="btn btn-inverse btn-small">Editer</a>
+		<a href="#modalRemove{{user.id}}" data-toggle="modal" class="btn btn-danger btn-small">Supprimer</a>
+	 </td>
+  </TR> 
+  {% endfor %}
+</table>
+
+{% for user in users %}
+		<div class="modal hide fade" id="modalRemove{{user.id}}">
+		  <div class="modal-body">
+		    	<p>Êtes vous sûr de vouloir supprimer l'utilisateur {{user.username}} ?</p>
+		   </div>
+		  <div class="modal-footer">
+	    	<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+	    	<a href="{{ path('admin_deluser', {'username': user.username|url_encode}) }}" class="btn btn-primary">Oui</a>
+		  </div>
+		</div>
+{% endfor %}
+
+
+<!-- Modal -->
+<div id="modalAddUser" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel">Ajout d'un utilisateur</h3>
+	</div>
+	<div class="modal-body">
+		<form action="{{ path('admin_users') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+			{{ form_widget(form) }}
+		<div>
+        <input class="btn btn-primary" type="submit" value="Ajouter cet utilisateur" />
+    </div>
+</form>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+	</div>
+</div>
+
+{% if reg_failure is defined %}
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		$('#modalAddUser').modal('show'); 
+	}, false);
+</script>
+{% endif %}
+
+{% endblock %}

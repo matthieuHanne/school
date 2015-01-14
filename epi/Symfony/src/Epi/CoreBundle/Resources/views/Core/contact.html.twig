@@ -1,0 +1,14 @@
+{% extends "EpiCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Contacts{% endblock %}
+
+{% block epicore_body %}
+<div class="row-fluid">
+	<div class="span6">
+		{{ coreDatas['contact']|raw}}
+	</div>
+	<div class="span6">
+	<iframe width="400" height="330" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.fr/maps?hl=fr&amp;ie=UTF8&amp;t=m&amp;ll=49.415329,2.818851&amp;spn=0.004607,0.008583&amp;z=16&amp;output=embed"></iframe><br /><small><a href="https://maps.google.fr/maps?hl=fr&amp;ie=UTF8&amp;t=m&amp;ll=49.415329,2.818851&amp;spn=0.004607,0.008583&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">Agrandir le plan</a></small>
+	</div>
+</div>
+{% endblock %}

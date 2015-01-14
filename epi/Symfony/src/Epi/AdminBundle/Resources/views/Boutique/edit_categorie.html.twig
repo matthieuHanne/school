@@ -1,0 +1,13 @@
+{% extends "EpiAdminBundle::layout.html.twig" %}
+
+{% block body %}
+		<h3>Modifier la categorie : {{categorie.nom}} </h3>
+		<div class="well">
+			<form action="#" class="form-horizontal" method="post" {{form_enctype(form_categorie)}}>
+				{{form_widget(form_categorie)}}
+				<br>
+				<input type="submit" class="btn btn-primary" />
+				<a class="btn" href="{{path('admin_boutique', {'onglet_boutique' : 'categories'})}}">Annuler</a>
+			</form>
+		</div>
+{% endblock %}

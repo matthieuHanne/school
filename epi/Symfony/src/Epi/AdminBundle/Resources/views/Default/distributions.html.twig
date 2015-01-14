@@ -1,0 +1,85 @@
+{% extends "EpiAdminBundle::layout.html.twig" %}
+
+{% block body %}
+
+<p><button class="btn" href="#modalAddDistribution" data-toggle="modal"><i class="icon-plus"></i> Ajouter une distribution</button></p>
+
+{% if distributions %}
+	<table class="table table-striped">
+	  <TR>
+	  	 <th>Numéro</th>
+		 <TH>Date</TH> 
+		 <TH>Horaires</TH> 
+		 <th>Nombre de commandes</th>
+		 <TH></TH> 
+	  </TR> 
+	  {% for distribution in distributions %}
+	  <TR> 
+	  	 <td>{{distribution.id}}</td>
+		 <TD>{{distribution.date}}</TD> 
+		 <TD>{{distribution.horaires}}</TD>
+		 <td>{{distributions_commandes[distribution.id]}}</td>
+		 <td>
+		 	<a href="{{ path('admin_distribution_edit', {'id': distribution.id}) }}" class="btn btn-inverse btn-small">Editer</a>
+		 	<a href="#modalRemove{{distribution.id}}" data-toggle="modal" class="btn btn-danger btn-small">Supprimer</a>
+		 </td>
+	  </TR> 
+	  {% endfor %}
+	</table>
+
+	{% for distribution in distributions %}
+		<div class="modal hide fade" id="modalRemove{{distribution.id}}">
+		  <div class="modal-body">
+		  	{% if distributions_commandes[distribution.id] == 0 %}
+		    	<p>Êtes vous sûr de vouloir supprimer la distribution numéro {{distribution.id}} ?</p>
+		   </div>
+		  <div class="modal-footer">
+	    	<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+	    	<a href="{{ path('admin_distribution_remove', {'id': distribution.id}) }}" class="btn btn-primary">Oui</a>
+		    {% else %}
+		    	<p>Cette distribution ne peut pas être supprimée car certaines commandes y sont liées.<br>
+		    		Vous devez d'abord valider ou supprimer toutes les commandes liées à cette distribution avant de pouvoir la supprimer.</p>
+		   </div>
+		   <div class="modal-footer">
+		     <button class="btn" data-dismiss="modal" aria-hidden="true">Ok</button>
+		    {% endif %}
+		  </div>
+		</div>
+	{% endfor %}
+
+{% else %}
+	<p>Aucune distribution prévue.</p>
+{% endif %}
+
+
+
+
+<div id="modalAddDistribution" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="ModalLabel">Ajout d'une distribution</h3>
+  </div>
+  <div class="modal-body">
+  	<form action="{{ path('admin_distribution_add') }}" method="post" {{form_enctype(form)}}>
+    <div>
+	  {{ form_label(form.date, "Date (format dd/mm/yyyy) : ") }}	 
+	  {{ form_widget(form.date) }}
+	  {{ form_errors(form.date) }}
+	</div>
+	 
+	<div>
+	  {{ form_label(form.horaires, "Horaires de début et de fin : ") }}
+	  {{ form_errors(form.horaires) }}
+	  {{ form_widget(form.horaires) }}
+	</div>
+	
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+    <button class="btn btn-primary" type="submit">Enregistrer</button>
+    </form>
+  </div>
+</div>
+
+	
+{% endblock %}

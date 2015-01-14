@@ -1,0 +1,18 @@
+{% extends "EpiCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Accueil{% endblock %}
+
+{% block epicore_body %} 
+	{% for news in listeNews %}
+		<div class="well">
+			<h2> {{ news.title }} </h2> 
+			{{ news.contain|raw }}
+			<br><br>
+			<i>Le {{ news.date|date("d/m/Y") }} par {{ news.author }}</i>
+		</div>
+	{% endfor %}
+{% endblock %}
+
+
+
+

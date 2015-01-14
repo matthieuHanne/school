@@ -1,0 +1,146 @@
+{% extends "EpiAdminBundle::layout.html.twig" %}
+
+{% block body %}
+
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+	  <ul class="nav nav-pills">
+	    <li {% if onglet_boutique=="produits" %} class="active" {% endif %} ><a href="#produits" data-toggle="tab">Produits</a></li>
+	    <li {% if onglet_boutique=="categories" %} class="active" {% endif %} ><a href="#categories" data-toggle="tab">Catégories de produits</a></li>
+	  </ul>
+	  <div class="tab-content">
+	    <div class="tab-pane {% if onglet_boutique=='produits' %} active {% endif %}" id="produits">
+			<p><button class="btn" href="#addProduitModal" data-toggle="modal"><i class="icon-plus"></i> Ajouter un produit</button></p>
+	     	<table class="table table-striped">
+			  <TR>
+			  	 <TH>Id</TH> 
+				 <TH>Nom</TH> 
+				 <TH>Catégorie</TH> 
+				 <TH>Prix</TH> 
+				 <TH>Quantité</TH> 
+				 <TH>Quantité commandée</TH> 
+				 <TH>Modifier la quantité</TH> 
+				 <th></th>
+				 
+			  </TR> 
+			  {% for produit in produits %}
+			  <TR> 
+			  	 <TD>{{produit.id}}</TD> 
+				 <TD>{{produit.nom}}</TD> 
+				 <Td>{{produit.categorie.nom}}</Td>  
+				 <TD>{{produit.prix}}€</TD> 
+				 <TD>{{produit.quantite}}</TD> 
+				 <TD>{{produit.quantiteCommandee}}</TD> 
+				 <td>
+			 		<a href="{{ path('admin_produit_plus', {'id': produit.id}) }}"><i class="icon-plus"></i></a>
+					<a href="{{ path('admin_produit_moins', {'id': produit.id}) }}"><i class="icon-minus"></i></a>
+				 </td>
+				 <td>
+				 	<a href="{{ path('admin_produit_edit', {'id': produit.id}) }}" class="btn btn-inverse btn-small">Editer</a>
+				 	<a href="#modalRemoveProduit{{produit.id}}" data-toggle="modal" class="btn btn-danger btn-small">Supprimer</a>
+				 </td>
+			  </TR> 
+			  {% endfor %}
+			</table>
+	    </div>
+
+	    <div class="tab-pane {% if onglet_boutique=='categories' %} active {% endif %}" id="categories">
+
+			<p><button class="btn" href="#addCategorieModal" data-toggle="modal"><i class="icon-plus"></i> Ajouter une catégorie</button></p>
+
+	      <table class="table table-striped">
+			  <TR> 
+			  	 <TH>Id</TH> 
+				 <TH>Nom</TH> 
+				 <TH>Nombre de produits</TH> 
+				 <TH></TH> 
+			  </TR> 
+			  {% for categorie in categories %}
+			  <TR> 
+			  	 <TD>{{categorie.id}}</TD> 
+				 <TD>{{categorie.nom}}</TD> 
+				 <TD>{{nbre_produits[categorie.id]}}</TD> 
+				 <td>
+				 	<a href="{{ path('admin_categorie_edit', {'id': categorie.id}) }}" class="btn btn-inverse btn-small">Editer</a>
+				 	<a href="#modalRemoveCategorie{{categorie.id}}" data-toggle="modal" class="btn btn-danger btn-small">Supprimer</a>
+				 </td>
+			  </TR> 
+			  {% endfor %}
+			</table>
+	    </div>
+
+		<div id="addProduitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Ajouter un produit</h3>
+			</div>
+			<div class="modal-body">
+				<form action="{{ path('admin_produit_add') }}" method="post" {{form_enctype(form_produit)}}>
+				{{form_widget(form_produit)}}
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="submit">Enregistrer</button>
+				</form>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			</div>
+		</div>
+		
+
+		{% for produit in produits %}
+			<div id="modalRemoveProduit{{produit.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-body">
+					{% if produit.quantiteCommandee==0 %}
+						<p>Êtes vous sûr de vouloir supprimer le produit numéro {{produit.id}} : {{produit.nom}}?</p>
+					{% else %}
+						<p>Ce produit ne peut pas être supprimé car il a été commandé par des utilisateurs.</p>
+					{% endif %}
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+					{% if produit.quantiteCommandee==0 %}
+		    			<a class="btn btn-primary" href="{{ path('admin_produit_remove', {'id' : produit.id}) }}">Oui</a>
+		    		{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+
+
+		<div id="addCategorieModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Ajouter une categorie</h3>
+			</div>
+			<div class="modal-body">
+				<form action="{{ path('admin_categorie_add') }}" method="post" {{form_enctype(form_categorie)}}>
+				{{form_widget(form_categorie)}}
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="submit">Enregistrer</button>
+			</form>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+			</div>
+		</div>
+
+
+		{% for categorie in categories %}
+			<div id="modalRemoveCategorie{{categorie.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-body">
+					{% if nbre_produits[categorie.id]==0 %}
+						<p>Êtes vous sûr de vouloir supprimer la catégorie numéro {{categorie.id}} ?</p>
+					{% else %}
+						<p>Cette catégorie ne peut pas être supprimée car dest produits sont contenus dans celle-ci.</p>
+					{% endif %}
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+					{% if nbre_produits[categorie.id]==0 %}
+		    			<a class="btn btn-primary" href="{{ path('admin_categorie_remove', {'id' : categorie.id}) }}">Oui</a>
+		    		{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+
+		</div>
+	</div>
+
+	
+{% endblock %}

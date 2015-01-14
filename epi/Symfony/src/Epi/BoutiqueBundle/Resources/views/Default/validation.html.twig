@@ -1,0 +1,57 @@
+
+{% extends "EpiCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Validation{% endblock %}
+
+{% block epicore_body %}
+
+<p>
+	<a href="{{ path('boutique_index') }}"><label class="label">Retour à la boutique</label></a>
+</p>
+
+<h1>Récapitulatif de la commande</h2>
+
+
+<table class="table table-striped">
+  <TR>
+	 <TH>Produit</TH> 
+	 <TH>Prix unitaire</TH> 
+	 <TH>Quantité</TH> 
+	 <TH>Prix total</TH> 
+	 <TH></TH> 
+  </TR> 
+  {% for produitPanier in panier %}
+  <TR> 
+	 <TD>{{produitPanier.produit.nom}}</TD> 
+	 <TD>{{produitPanier.produit.prix}}€</TD>
+	 <Td>{{produitPanier.quantite}}</Td>  
+	 <TD>{{produitPanier.produit.prix*produitPanier.quantite}}€</TD> 
+	 <td>
+	 	{% if produitPanier.produit.quantite>0 and produitPanier.produit.quantite>produitPanier.produit.quantiteCommandee and produitPanier.produit.quantite>produits_quantite[produitPanier.produit.id] %}
+	 		<a href="{{ path('boutique_plus', {'id': produitPanier.id, 'from' : 'valider'}) }}"><i class="icon-plus"></i></a>
+		{% endif %}
+		<a href="{{ path('boutique_moins', {'id': produitPanier.id, 'from' : 'valider'}) }}"><i class="icon-minus"></i></a>
+		<a href="{{ path('boutique_remove', {'id': produitPanier.id, 'from' : 'valider'}) }}"><i class="icon-remove"></i></a>
+	 </td>
+  </TR> 
+  {% endfor %}
+</table>		
+
+<p>Total : {{total}}€</p>
+
+
+<p>
+	
+
+  <form method="post" {{ form_enctype(form) }}>
+  	<p>Choix de l'horaire de permancence : {{ form_widget(form.distribution) }}</p>
+  	<input type="submit" class="btn btn-success" value="Valider la commande"/>
+  </form>
+
+</p>
+
+
+
+
+
+{% endblock %}

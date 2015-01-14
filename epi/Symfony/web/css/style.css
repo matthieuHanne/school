@@ -1,0 +1,138 @@
+
+@font-face {
+    font-family: "Cookie";
+    src: url('./Cookie-Regular.ttf');
+}
+
+html,body{
+	height: 100%
+}
+
+body {
+	/* background-color: #efefef; GRIS CLAIR */
+	background-color: #D5D2CB; /* GRIS FONCE */
+	background-attachment:fixed;
+}
+
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	width: 940px;
+	margin: 0 auto -110px;
+	margin-right: auto;
+	margin-left: auto;
+	background:white;
+	border-right: 1px solid #e3e3e3;
+	border-left: 1px solid #e3e3e3;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.push-bot {
+	height: 110px;
+}
+
+.push-top {
+	/* height: 140px; */
+}
+
+#header {
+	/* position:fixed; */
+	/* Pour la position fixe du header, il faut décommenter la propriété 'fixed' ci-dessus, et également rajouter le cadre HTML qui
+	fait que le header ne va donc pas masquer le début du contenu. Pour cela il faut décommenter le css de la classe push-top */
+	width:940px;
+	z-index: 1030;
+	margin-bottom: 0;
+}
+
+.banniere {
+	background:white;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+#header .banniere img {
+	width:100px;
+	height:100px;
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left:5px;
+	margin-right: 5px;
+}
+
+h1, h2 {
+	font-weight: normal;
+	font-family: "Cookie", "Arial", sans-serif;
+	color:#434B4E;
+}
+
+#header .banniere h1 {
+	margin-top:34px;
+	font-size:56px;
+	color:#85b7d0;
+}
+
+h2:first-letter {
+	color : #85b7d0;
+}
+
+#content {
+	text-align:justify;
+	margin-left:40px;
+}
+
+footer{
+	height:90px;
+	background:#85b7d0;
+	border-top-left-radius : 50% 50px;
+	border-top-right-radius : 50% 50px;
+	margin-top: 20px;
+}
+
+footer a:link {color:white;}
+footer a:visited {color:white;}
+
+footer .row{
+	padding-top : 35px;
+}
+
+.footer-text-left {
+	text-align : center;
+	color: white;
+}
+
+.footer-text-right {
+
+	text-align : center;
+	color: white;
+	
+}
+
+.img_height_80px{
+	max-height: 80px;
+}
+
+textarea {
+	width:98%;
+	height:350px;
+}
+
+#epi_corebundle_newstype_contain {
+	width:98%;
+	height:150px;
+}
+
+#header .banniere {
+	position:relative;
+}
+
+.logo_facebook {
+	max-height:32px;
+	max-width:32px;
+	position:absolute;
+	right:15px;
+	bottom:10px;
+}

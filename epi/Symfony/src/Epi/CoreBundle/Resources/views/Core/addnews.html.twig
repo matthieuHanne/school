@@ -1,0 +1,24 @@
+{% extends "EpiCoreBundle::layout.html.twig" %}
+
+{% block title %}
+Ajouter une news - {{ parent() }}
+{% endblock %}
+
+{% block sdzblog_body %}
+
+<h2>Ajouter une news</h2>
+
+{% include "SdzBlogBundle:Blog:formulaire.html.twig" %}
+
+<p>
+	Cette news sera ajoutée sur la page d'accueil
+</p>
+
+	 <p>
+	 <a href="{{ path('epicore_static') }}" class="btn">
+	 <i class="icon-chevron-left"></i>
+	 Retour à l'accueil
+	 </a>
+	 </p>
+
+{% endblock %}

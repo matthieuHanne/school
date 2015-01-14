@@ -1,0 +1,31 @@
+{% extends "EpiCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+
+{% block epicore_body %}
+
+<h2></h2>
+
+<h2>{{ news.titre }}</h2>
+<i>Par {{ news.auteur }}, le {{ news.date|date('d/m/Y') }}</i>
+
+<div class="well">
+{{ news.contenu }}
+</div>
+
+<p>
+<a href="{{ path('epicore_static') }}" class="btn">
+<i class="icon-chevron-left"></i>
+Retour à la liste
+</a>
+<a href="{{ path('epicore_putnews', {'id': news.id}) }}" class="btn">
+<i class="icon-edit"></i>
+Modifier la news
+</a>
+<a href="{{ path('epicore_delnews', {'id': news.id}) }}" class="btn">
+<i class="icon-trash"></i>
+Supprimer la news
+</a>
+
+
+{% endblock %}

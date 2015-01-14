@@ -1,0 +1,79 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="fos_user_user_show">
+	<h2>Mes commandes</h2>
+{% if commandes %}
+	<table class="table table-striped">
+	  <TR>
+		 <TH>Numéro de commande</TH>
+		 <TH>Distribution</TH> 
+		 <TH>Total</TH> 
+		 <TH></TH> 
+	  </TR> 
+	  {% for commande in commandes %}
+	  <TR> 
+		 <TD>{{commande.id}}</TD> 
+		 <td>{{commande.distribution.date}}, {{commande.distribution.horaires}}</td>
+		 <Td>{{commandes_array[commande.id]['total']}}€</Td>  
+		 <td>
+		 	<a href="#modalInfoCommande{{commande.id}}" data-toggle="modal" class="btn btn-success btn-small"><i class="icon-white icon-eye-open"></i> Voir le détail</a>
+		 	<a href="#modalRemove{{commande.id}}" data-toggle="modal" class="btn btn-danger btn-small">Annuler cette commande</a>
+		 </td>
+	  </TR> 
+	  {% endfor %}
+	</table>
+{% else %}
+	<p>Aucune commande en cours</p>
+{% endif %}
+
+{% for commande in commandes %}
+		<div id="modalInfoCommande{{commande.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 id="myModalLabel">Détails de la commande n°{{commande.id}}</h3>
+		  </div>
+		  <div class="modal-body">
+			<table class="table table-striped">
+			  <TR>
+				 <TH>Produit</TH> 
+				 <TH>Description</TH> 
+				 <TH>Quantité</TH> 
+				 <TH>Prix total</TH> 
+			  </TR> 
+			  {% for produitCommande in commandes_array[commande.id]['produitCommande'] %}
+			  <TR> 
+				 <TD>{{produitCommande.produit.nom}}</TD> 
+				 <TD>{{produitCommande.produit.description}}</TD>
+				 <Td>{{produitCommande.quantite}}</Td>  
+				 <TD>{{produitCommande.produit.prix*produitCommande.quantite}}€</TD> 
+			  </TR> 
+			  {% endfor %}
+			</table>
+			<label class="label label-warning">Total : {{commandes_array[commande.id]['total']}}€</label>		
+		  </div>
+		  <div class="modal-footer">
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
+		  </div>
+		</div>
+
+		<div id="modalRemove{{commande.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-body">
+		    <p>Êtes vous sûr de vouloir supprimer votre commande numéro {{commande.id}} ?</p>
+		  </div>
+		  <div class="modal-footer">
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+		    <a class="btn btn-primary" href="{{ path('user_commande_remove', {'id' : commande.id}) }}">Oui</a>
+		  </div>
+		</div>
+	{% endfor %}
+	
+	
+	
+	<br><hr>
+    <p>{{ 'Login EPI '}}: {{ user.username }}</p>
+    <p>{{ 'Email '}}: {{ user.email }}</p>
+	<br>
+	<a class="btn" href="{{ path("fos_user_profile_edit") }}">Modifier mon adresse email</a><br><br>
+	<a class="btn" href="{{ path("fos_user_change_password") }}">Changer mon mot de passe</a>
+
+</div>

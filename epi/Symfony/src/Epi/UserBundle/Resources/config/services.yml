@@ -1,0 +1,19 @@
+parameters:
+#    epi_user.example.class: Epi\UserBundle\Example
+
+services:
+#    epi_user.example:
+#        class: %epi_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    epi_user.change_password.form.type:
+            class: Epi\UserBundle\Form\Type\ChangePasswordFormType
+            arguments: [%fos_user.model.user.class%]
+            tags:
+                - { name: form.type, alias: epi_user_change_password }
+
+    epi_user.profile.form.type:
+            class: Epi\UserBundle\Form\Type\ProfileFormType
+            arguments: [%fos_user.model.user.class%]
+            tags:
+                - { name: form.type, alias: epi_user_profile }

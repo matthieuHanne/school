@@ -1,0 +1,18 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+{% endif %}
+
+<form action="{{ path('fos_user_security_check') }}" method="POST" class="navbar-form pull-right">
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+	<!--[if IE]>
+	<input type="text" id="username_" name="_username" value="Login EPI" required="required" class="span2" />
+    <input type="password" id="password_" name="_password" required="required" class="span2" value="Mot de passe"/>
+	<![endif]-->
+	<!--[if !IE]><!-->
+	<input type="text" id="username_" name="_username" placeholder="Login EPI" required="required" class="span2" />
+    <input type="password" id="password_" name="_password" required="required" class="span2" placeholder="Mot de passe"/>
+	<!--<![endif]-->
+	<input type="submit" id="_submit" name="_submit" value="{{ 'Connexion'|trans }}" class="btn"/>
+</form>

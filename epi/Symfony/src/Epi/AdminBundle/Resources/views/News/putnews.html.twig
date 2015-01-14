@@ -1,0 +1,47 @@
+{% extends "EpiAdminBundle::layout.html.twig" %}
+{% block body %}
+
+		<script type="text/javascript" src="{{ asset('js/wysihtml5/parser_rules/advanced.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/wysihtml5/dist/wysihtml5-0.3.0.min.js') }}"></script>
+<h3 id="myModalLabel">Modifier la news : {{news.title}} </h3>
+		<div class="modal-body">
+<form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+				<div id="epi_corebundle_newstype"><div>
+				<div><label for="epi_corebundle_newstype_title" class="required">Titre</label>
+				<input type="text" id="epi_corebundle_newstype_title" name="epi_corebundle_newstype[title]" required="required" value="{{news.title}}" /></div>
+				<div><label for="epi_corebundle_newstype_author" class="required">Auteur</label>
+				<input type="text" id="epi_corebundle_newstype_author" name="epi_corebundle_newstype[author]" required="required" value="{{news.author}}" /></div>
+				<div><label for="epi_corebundle_newstype_contain" class="required">Contenu</label>
+<div class="navbar" id="wysihtml5-toolbar" style="display: none;">
+	<div class="navbar-inner">
+		<ul class="nav">
+			<li id="lol"><a onClick="javascript:$(this).parent().toggleClass('active');" data-wysihtml5-command="bold">bold</a></li>
+			<li> <a onClick="javascript:$(this).parent().toggleClass('active');"  data-wysihtml5-command="italic">italic</a></li>
+			<li><a onClick="javascript:$(this).parent().toggleClass('active');"  data-wysihtml5-command="createLink">insert link</a><li>
+			<li><div data-wysihtml5-dialog="createLink" style="display: none;">
+					<input data-wysihtml5-dialog-field="href" value="http://" class="text">
+					<a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+				</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<textarea id="epi_corebundle_newstype_contain" name="epi_corebundle_newstype[contain]" required="required">{{news.contain}}</textarea></div>
+				<div><label class="checkbox" for="epi_corebundle_newstype_publication">Publication <input type="checkbox" id="epi_corebundle_newstype_publication" name="epi_corebundle_newstype[publication]" value="1" {% if news.publication %}checked="checked{% endif %}" /></label></div>
+				{{ form_row(form._token) }}
+				<input type="submit" class="btn btn-primary" />
+			</form>
+		</div>
+
+<script>
+var editor = new wysihtml5.Editor("epi_corebundle_newstype_contain", { // id of textarea element
+  toolbar:      "wysihtml5-toolbar", // id of toolbar element
+    parserRules:  wysihtml5ParserRules // defined in parser rules set 
+    });
+
+    </script>
+		</div>
+{% endblock %}

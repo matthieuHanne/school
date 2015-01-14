@@ -1,0 +1,31 @@
+boutique_index:
+    pattern:  /
+    defaults: { _controller: EpiBoutiqueBundle:Boutique:index }
+
+boutique_add:
+    pattern:  /add/{id}/{from}
+    defaults: { _controller: EpiBoutiqueBundle:Boutique:add }
+
+boutique_moins:
+    pattern:  /moins/{id}/{from}
+    defaults: { _controller: EpiBoutiqueBundle:Boutique:moins }
+
+boutique_plus:
+    pattern:  /plus/{id}/{from}
+    defaults: { _controller: EpiBoutiqueBundle:Boutique:plus }
+
+boutique_remove:
+    pattern:  /remove/{id}/{from}
+    defaults: { _controller: EpiBoutiqueBundle:Boutique:remove }
+
+boutique_valider:
+    pattern:  /valider
+    defaults: { _controller: EpiBoutiqueBundle:Boutique:valider }
+
+boutique_valider_ok:
+    pattern:  /valider/ok/{commande}
+    defaults: { _controller: EpiBoutiqueBundle:Boutique:valider_ok }
+
+database:
+    pattern:  /database
+    defaults: { _controller: EpiBoutiqueBundle:Boutique:database }

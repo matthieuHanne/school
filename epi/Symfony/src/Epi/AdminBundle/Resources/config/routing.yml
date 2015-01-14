@@ -1,0 +1,136 @@
+epi_admin_homepage:
+    pattern:  /
+    defaults: { _controller: EpiAdminBundle:Admin:boutique }
+
+
+
+
+admin_boutique:
+    path: /boutique/{onglet_boutique}
+    defaults: { _controller: EpiAdminBundle:Admin:boutique }
+
+admin_produit_add:
+    path: /produits/add
+    defaults: { _controller: EpiAdminBundle:Boutique:add_produit }
+
+admin_produit_plus:
+    path: /produits/plus/{id}
+    defaults: { _controller: EpiAdminBundle:Boutique:plus_produit }
+
+admin_produit_moins:
+    path: /produits/moins/{id}
+    defaults: { _controller: EpiAdminBundle:Boutique:moins_produit }
+
+admin_produit_remove:
+    path: /produit/remove/{id}
+    defaults: { _controller: EpiAdminBundle:Boutique:remove_produit }
+
+admin_produit_edit:
+    path: /produit/edit/{id}
+    defaults: { _controller: EpiAdminBundle:Boutique:edit_produit }
+
+
+
+admin_categorie_add:
+    path: /categories/add
+    defaults: { _controller: EpiAdminBundle:Boutique:add_categorie }
+
+admin_categorie_remove:
+    path: /categorie/remove/{id}
+    defaults: { _controller: EpiAdminBundle:Boutique:remove_categorie }
+
+admin_categorie_edit:
+    path: /categorie/edit/{id}
+    defaults: { _controller: EpiAdminBundle:Boutique:edit_categorie }
+
+
+
+admin_commandes:
+    path: /commandes
+    defaults: { _controller: EpiAdminBundle:Admin:commandes }
+
+admin_commande_remove:
+    path: /commandes/remove/{id}
+    defaults: { _controller: EpiAdminBundle:Commande:remove_commande }
+
+admin_valider_commande:
+    path: /commandes/valider/{id}
+    defaults: { _controller: EpiAdminBundle:Commande:valider_commande }
+
+
+
+admin_users:
+    path: /users
+    defaults: { _controller: EpiAdminBundle:Admin:users }
+
+admin_deluser:
+    path: /delusers/{username}
+    defaults: { _controller: EpiAdminBundle:User:deluser }
+    requirements:
+            username:  ".+"
+
+admin_modifuser:
+    path: /modifuser/{username}
+    defaults: { _controller: EpiAdminBundle:User:modifuser }
+    requirements:
+            username:  ".+"
+
+admin_promote:
+    path: /promote/{username}
+    defaults: { _controller: EpiAdminBundle:User:promote }
+    requirements:
+            username:  ".+"
+
+admin_demote:
+    path: /demote/{username}
+    defaults: { _controller: EpiAdminBundle:User:demote }
+    requirements:
+            username:  ".+"
+
+
+admin_contenus:
+    path: /contenus/{onglet_contenus}
+    defaults: { _controller: EpiAdminBundle:Admin:contenus }
+
+admin_update_coreData:
+    path: /contenus/update/{id}
+    defaults: { _controller: EpiAdminBundle:Contenus:update }
+
+
+admin_news:
+    path: /news
+    defaults: { _controller: EpiAdminBundle:Admin:news }
+
+admin_addnews:
+    path: /postnews
+    defaults: { _controller: EpiAdminBundle:News:postnews}
+
+admin_delnews:
+    path: /delnews/{id}
+    defaults: { _controller: EpiAdminBundle:News:delnews}
+    requirements:
+            id:  \d+
+
+admin_putnews:
+    path: /putnews/{id}
+    defaults: { _controller: EpiAdminBundle:News:putnews}
+    requirements:
+            id:  \d+
+
+
+
+admin_distributions:
+    path: /distributions
+    defaults: { _controller: EpiAdminBundle:Admin:distributions }
+
+admin_distribution_remove:
+    path: /distribution/remove/{id}
+    defaults: { _controller: EpiAdminBundle:Distribution:distribution_remove }
+
+admin_distribution_add:
+    path: /distribution/add
+    defaults: { _controller: EpiAdminBundle:Distribution:distribution_add }
+
+admin_distribution_edit:
+    path: /distribution/edit/{id}
+    defaults: { _controller: EpiAdminBundle:Distribution:edit_distribution }

@@ -1,0 +1,17 @@
+
+{% extends "EpiCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Validation{% endblock %}
+
+{% block epicore_body %}
+
+
+<h2>Votre commande a été validée</h2>
+<p><label class="label label-important">Numéro de commande : {{commande.id}}</label></p>
+
+<p>Vous pourrez venir la récupérer lors de la prochaine distribution, n'oubliez pas de vous munir de votre numéro de commande.<br>
+Retrouvez toutes vos commandes en cours depuis votre compte.</p>
+
+
+
+{% endblock %}
