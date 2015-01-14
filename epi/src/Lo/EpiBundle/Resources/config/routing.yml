@@ -1,0 +1,21 @@
+epi_accueil:
+    path: /
+    defaults: { _controller: LoEpiBundle:Epi:index }
+
+epi_static:
+    path: /{page}
+    defaults: { _controller: LoEpiBundle:Epi:static }
+    requirements:
+        page: aider|donner|benevolat|presentation|beneficier|partenaire
+
+epi_boutique:
+    path: /boutique
+    defaults: { _controller: LoEpiBundle:Epi:boutique }
+
+epi_compte:
+    path: /compte
+    defaults: { _controller: LoEpiBundle:Epi:compte }
+
+epi_contact:
+    path: /contact
+    defaults: { _controller: LoEpiBundle:Epi:contact }

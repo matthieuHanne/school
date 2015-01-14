@@ -1,0 +1,4 @@
+lo_epi:
+    resource: "@LoEpiBundle/Resources/config/routing.yml"
+    prefix:   /
+
